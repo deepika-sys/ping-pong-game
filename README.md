@@ -10,4 +10,8 @@ In one player game, the player can move paddle left and right on board using mou
 # Two player choice
 In two player game, the player on left side is player 1 and player on right side is player 2. Player 1 move the paddle up and down by using ‘w’ and ‘s’ respectively while player 2 move the paddle up and down using up and down arrow key respectively. On player 1 side the score written are of player 2 missed attempts and vice versa for player 2.After reaching the missed attempts to three the game will be over and pop up appear with score and winning player number.
 
+# Deploy
+Deploy through netlify
+You can play game by clicking below link:
+
 
