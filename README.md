@@ -13,6 +13,7 @@ In two player game, the player on left side is player 1 and player on right side
 
 # Deploy
 Deploy through netlify\
-You can play game by clicking below link:
+You can play game by clicking below link:\
+https://ping-pong-game-dc185d.netlify.app/
 
 
