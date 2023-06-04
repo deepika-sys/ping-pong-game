@@ -1,0 +1,112 @@
+<!-- one player html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One player</title>
+  <link rel="stylesheet" href="one_player.css">
+</head>
+
+<body>
+  <div class="board">
+    <h1>&#x23F2; Your score:</h1>
+    <h2 class="player_score">0</h2>
+    <div id="gameArea">
+      <div id='ball'>
+        <div id="ball_effect"></div>
+      </div>
+      <div id="paddle"></div>
+    </div>
+  </div>
+  <div class = "footer">
+    <p>© Made By Deepika 43 CSE-B</p>
+</div>
+  <script>
+    // Game variables
+    var gameArea = document.getElementById("gameArea");
+    var ball = document.getElementById("ball");
+    var paddle = document.getElementById("paddle");
+    var score = document.querySelector('.player_score');
+    var attempts = 0;
+
+    // Set initial position and speed of the ball
+    var ballX = 0;
+    var ballY = 0;
+    var ballSpeedX = 3;
+    var ballSpeedY = 3;
+
+    // Move the paddle with the mouse
+    gameArea.addEventListener("mousemove", function (event) {
+      var mouseX = event.clientX - gameArea.offsetLeft;
+      if (mouseX >= 0 && mouseX <= gameArea.offsetWidth - paddle.offsetWidth) {
+        paddle.style.left = mouseX + "px";
+      }
+    });
+
+    // Game loop
+    function gameLoop() {
+      // Update ball position
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      // Reverse ball direction if it hits the walls
+      if (ballX <= 0 || ballX >= gameArea.offsetWidth - ball.offsetWidth) {
+        ballSpeedX = -ballSpeedX;
+      }
+      if (ballY <= 0) {
+        ballSpeedY = -ballSpeedY;
+      }
+
+      // Check if the ball hits the paddle
+      if (
+        ballY + ball.offsetHeight >= paddle.offsetTop &&
+        ballX + ball.offsetWidth >= paddle.offsetLeft &&
+        ballX <= paddle.offsetLeft + paddle.offsetWidth
+      ) {
+        ballSpeedY = -ballSpeedY;
+        score.innerHTML = +score.innerHTML + 1;
+      }
+
+      // Check if the ball misses the paddle
+      if (ballY >= gameArea.offsetHeight - ball.offsetHeight) {
+        attempts++;
+        if (attempts === 3) {
+          // Game over
+          alert("Game Over! Your score: " + score.innerHTML);
+          resetGame();
+        } else {
+          resetBall();
+        }
+      }
+
+      // Move the ball
+      ball.style.left = ballX + "px";
+      ball.style.top = ballY + "px";
+
+      // Run the game loop recursively
+      requestAnimationFrame(gameLoop);
+    }
+
+    // Reset ball position and speed
+    function resetBall() {
+      ballX = 0;
+      ballY = 0;
+      ballSpeedX = 3;
+      ballSpeedY = 3;
+    }
+
+    // Reset game
+    function resetGame() {
+      score = 0;
+      attempts = 0;
+      resetBall();
+    }
+
+    // Start the game loop
+    gameLoop();
+  </script>
+</body>
+
+</html>
